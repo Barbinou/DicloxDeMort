@@ -25,4 +25,16 @@ class DictionnaryTest {
     void testVerifyEmptyMot() {
         assertTrue(dictionnary.getWords().isEmpty());
     }
+
+    @Test
+    void testAddTranslation() {
+        dictionnary.addTranslation("bonjour", "hello");
+        assert dictionnary.getWords().size() == 1;
+    }
+
+    @Test
+    void testGetTranslation() {
+        dictionnary.addTranslation("bonjour", "hello");
+        assertEquals("hello", dictionnary.getTranslation("bonjour"));
+    }
 }
