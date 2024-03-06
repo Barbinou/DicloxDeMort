@@ -2,19 +2,29 @@ package quoi.feur;
 
 import lombok.Data;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Data
 public class Dictionnary {
     private final String name;
-    private final Map<String, String> words = new HashMap<>();
+    private final Map<String, List<String>> words = new HashMap<>();
 
-    public String getTranslation(String fr) {
+    public String getOneTranslation(String fr) {
+        return words.get(fr).get(0);
+    }
+
+    public List<String> getAllTranslations(String fr) {
         return words.get(fr);
     }
 
     public void addTranslation(String fr, String en) {
-        words.put(fr, en);
+        if (words.containsKey(fr)) {
+            words.get(fr).add(en);
+        }
+        else {
+            List<String> translations = new ArrayList<>();
+            translations.add(en);
+            words.put(fr, translations);
+        }
     }
 }

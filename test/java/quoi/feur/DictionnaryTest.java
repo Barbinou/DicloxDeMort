@@ -27,14 +27,29 @@ class DictionnaryTest {
     }
 
     @Test
-    void testAddTranslation() {
+    void testAddTranslationSimple() {
         dictionnary.addTranslation("bonjour", "hello");
         assert dictionnary.getWords().size() == 1;
     }
 
     @Test
-    void testGetTranslation() {
+    void testAddTranslationMultiple() {
         dictionnary.addTranslation("bonjour", "hello");
-        assertEquals("hello", dictionnary.getTranslation("bonjour"));
+        dictionnary.addTranslation("bonjour", "hi");
+        assert dictionnary.getWords().size() == 1;
+        assert dictionnary.getWords().get("bonjour").size() == 2;
+    }
+
+    @Test
+    void testGetOneTranslation() {
+        dictionnary.addTranslation("bonjour", "hello");
+        assertEquals("hello", dictionnary.getOneTranslation("bonjour"));
+    }
+
+    @Test
+    void testGetAllTranslations() {
+        dictionnary.addTranslation("bonjour", "hello");
+        dictionnary.addTranslation("bonjour", "hi");
+        assertEquals(2, dictionnary.getAllTranslations("bonjour").size());
     }
 }
