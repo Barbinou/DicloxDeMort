@@ -1,0 +1,6 @@
+Dico de zinzin
+bonjour;hello;hi
+limoges;limoges
+est;is
+en;in
+colombie;colombia

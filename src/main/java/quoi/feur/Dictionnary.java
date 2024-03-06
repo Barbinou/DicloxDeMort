@@ -1,13 +1,28 @@
 package quoi.feur;
 
-import lombok.Data;
+import lombok.Getter;
 
-import java.util.*;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-@Data
+@Getter
 public class Dictionnary {
     private final String name;
     private final Map<String, List<String>> words = new HashMap<>();
+
+    public Dictionnary(String name) {
+        this.name = name;
+    }
+
+    public Dictionnary(File file) {
+        FileParser fileParser = new FileParser(file);
+        name = fileParser.getName();
+        Map<String, List<String>> translations = fileParser.parse();
+        translations.forEach((k, v) -> v.forEach(t -> addTranslation(k, t)));
+    }
 
     private void addWord(String key, String value) {
         // Si la clé n'existe pas, créez une nouvelle liste

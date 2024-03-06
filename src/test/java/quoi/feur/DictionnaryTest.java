@@ -1,12 +1,15 @@
 package quoi.feur;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.*;
 class DictionnaryTest {
     private static Dictionnary dictionnary;
 
-    @org.junit.jupiter.api.BeforeEach
+    @BeforeEach
     void setUp() {
         dictionnary = new Dictionnary("sha256");
     }
@@ -69,5 +72,13 @@ class DictionnaryTest {
         // Vérification de la traduction français vers anglais
         assertTrue(dictionnary.getAllTranslations("bonjour").contains("hello"));
         assertTrue(dictionnary.getAllTranslations("hello").contains("bonjour"));
+    }
+
+    @Test
+    void importFile() {
+        dictionnary = new Dictionnary(new File("dico.txt"));
+        System.out.println(dictionnary.getWords().size());
+        dictionnary.getWords().forEach((k, v) -> System.out.println(k + " -> " + v));
+        assert dictionnary.getWords().size() == 10; // car englais -> français et français -> anglais
     }
 }
